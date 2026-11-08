@@ -16,16 +16,16 @@ The [demo site](#a-demo-site); a picture opens the whole page.
 
 <table>
   <tr>
-    <td width="50%"><a href="docs/screenshots/home.jpg"><img src="docs/screenshots/home-preview.jpg" alt="The front page"></a><br>The front page</td>
-    <td width="50%"><a href="docs/screenshots/service.jpg"><img src="docs/screenshots/service-preview.jpg" alt="A service"></a><br>A service</td>
+    <td width="50%"><a href="docs/screenshots/home.webp"><img src="docs/screenshots/home-preview.webp" alt="The front page"></a><br>The front page</td>
+    <td width="50%"><a href="docs/screenshots/service.webp"><img src="docs/screenshots/service-preview.webp" alt="A service"></a><br>A service</td>
   </tr>
   <tr>
-    <td><a href="docs/screenshots/project.jpg"><img src="docs/screenshots/project-preview.jpg" alt="A project"></a><br>A project</td>
-    <td><a href="docs/screenshots/team.jpg"><img src="docs/screenshots/team-preview.jpg" alt="The team"></a><br>The team</td>
+    <td><a href="docs/screenshots/project.webp"><img src="docs/screenshots/project-preview.webp" alt="A project"></a><br>A project</td>
+    <td><a href="docs/screenshots/team.webp"><img src="docs/screenshots/team-preview.webp" alt="The team"></a><br>The team</td>
   </tr>
   <tr>
-    <td><a href="docs/screenshots/contacts.jpg"><img src="docs/screenshots/contacts-preview.jpg" alt="Contacts"></a><br>Contacts</td>
-    <td><a href="docs/screenshots/phone-home.jpg"><img src="docs/screenshots/phone-home-preview.jpg" alt="The front page on a phone" width="48%"></a> <a href="docs/screenshots/phone-project.jpg"><img src="docs/screenshots/phone-project-preview.jpg" alt="A project on a phone" width="48%"></a><br>On a phone: the front page, a project</td>
+    <td><a href="docs/screenshots/contacts.webp"><img src="docs/screenshots/contacts-preview.webp" alt="Contacts"></a><br>Contacts</td>
+    <td><a href="docs/screenshots/phone-home.webp"><img src="docs/screenshots/phone-home-preview.webp" alt="The front page on a phone" width="48%"></a> <a href="docs/screenshots/phone-project.webp"><img src="docs/screenshots/phone-project-preview.webp" alt="A project on a phone" width="48%"></a><br>On a phone: the front page, a project</td>
   </tr>
 </table>
 

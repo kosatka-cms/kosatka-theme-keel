@@ -5,8 +5,8 @@
 
 Takes each page of SHOTS from a site installed with the theme's demo set
 (app install -demo-set keel), as a visitor, in headless Google Chrome:
-the whole page (docs/screenshots/<name>.jpg) and its top as a preview
-(<name>-preview.jpg). Python 3 and Chrome only: Chrome is driven over its
+the whole page (docs/screenshots/<name>.webp) and its top as a preview
+(<name>-preview.webp). Python 3 and Chrome only: Chrome is driven over its
 DevTools protocol (a WebSocket, written out below).
 """
 import base64
@@ -36,7 +36,7 @@ PREVIEW_WIDTH = 800  # pixels of a preview (twice what the README shows)
 PHONE_PREVIEW_WIDTH = 500
 PREVIEW_RATIO = 0.7  # a desktop preview's height to its width
 PHONE_PREVIEW_RATIO = 2.0
-QUALITY = 82
+QUALITY = 80
 CHROME = os.environ.get("CHROME", "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome")
 OUT = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "docs", "screenshots")
 
@@ -145,13 +145,13 @@ def shoot(page, base, name, path, width, scale, phone):
         page.call("Emulation.setDeviceMetricsOverride", width=width, height=height, deviceScaleFactor=scale, mobile=phone)
         time.sleep(0.5)
         page.images_loaded()
-    full = page.call("Page.captureScreenshot", format="jpeg", quality=QUALITY, captureBeyondViewport=True,
+    full = page.call("Page.captureScreenshot", format="webp", quality=QUALITY, captureBeyondViewport=True,
                      clip={"x": 0, "y": 0, "width": width, "height": height, "scale": 1})
     ratio, preview_width = (PHONE_PREVIEW_RATIO, PHONE_PREVIEW_WIDTH) if phone else (PREVIEW_RATIO, PREVIEW_WIDTH)
     top = min(height, int(width * ratio))
-    preview = page.call("Page.captureScreenshot", format="jpeg", quality=QUALITY,
+    preview = page.call("Page.captureScreenshot", format="webp", quality=QUALITY,
                         clip={"x": 0, "y": 0, "width": width, "height": top, "scale": preview_width / (width * scale)})
-    print(save(full["data"], name + ".jpg"), save(preview["data"], name + "-preview.jpg"))
+    print(save(full["data"], name + ".webp"), save(preview["data"], name + "-preview.webp"))
 
 
 def main():
