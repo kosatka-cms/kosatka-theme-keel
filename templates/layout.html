@@ -1,0 +1,48 @@
+{{/* The keel page: the header; then, in <main>, the bands across the
+     window - the hero (a light band; on the front page under the site's
+     slogan), the content row (partials/main_column.html), the highlight
+     (a dark band), the bands (white and light grey in turn, a block
+     each), the call to action (a dark band) - each only when its region
+     has blocks for this page; the footer. The front page's heading is the
+     site's name, for readers and search engines (the hero's title is the
+     block's own). */}}
+{{template "header" .}}
+
+<main id="main-content" class="k-main">
+    {{if .isHomepage}}<h1 class="visually-hidden">{{.siteName}}</h1>{{end}}
+    {{if regionHasBlocks "hero" .}}
+    <div class="k-band k-hero">
+        <div class="k-wrap">
+            {{if .isHomepage}}{{with .siteSlogan}}<p class="k-kicker">{{.}}</p>{{end}}{{end}}
+            {{template "region_blocks" (dict "Region" (region "hero") "Ctx" .)}}
+        </div>
+    </div>
+    {{end}}
+
+    {{template "main_column" .}}
+
+    {{if regionHasBlocks "highlight" .}}
+    <div class="k-band k-dark k-highlight">
+        <div class="k-wrap">
+            {{template "region_blocks" (dict "Region" (region "highlight") "Ctx" .)}}
+        </div>
+    </div>
+    {{end}}
+    {{if regionHasBlocks "bands" .}}
+    <div class="k-bands">
+        {{template "region_blocks" (dict "Region" (region "bands") "Ctx" .)}}
+    </div>
+    {{end}}
+    {{if regionHasBlocks "cta" .}}
+    <div class="k-band k-dark k-cta">
+        <div class="k-wrap">
+            {{template "region_blocks" (dict "Region" (region "cta") "Ctx" .)}}
+        </div>
+    </div>
+    {{end}}
+</main>
+
+{{/* The enabled modules' markup at the end of the page
+     (page_end_<module>, e.g. the error report form). */}}
+{{moduleHook "page_end" .}}
+{{template "footer" .}}

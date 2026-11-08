@@ -1,0 +1,18 @@
+{{/* view_people - a View's list as people (the display's Theme
+     template: people): the item's first image field (a portrait), its
+     title (the name) and its text's first line (the role). The pager
+     when the View shows it. */}}
+{{define "view_people"}}
+{{if .items}}
+<ul class="k-people">
+    {{range .items}}
+    <li class="k-person">
+        {{if .MainImage.URI}}{{img (styledPicture .MainImage .ImageStyle) ""}}{{else}}<span class="k-person-placeholder" aria-hidden="true"></span>{{end}}
+        <strong class="k-person-name">{{or .AltTitle .Node.Title}}</strong>
+        {{with plainLead .Body 120}}<span class="k-person-role">{{.}}</span>{{end}}
+    </li>
+    {{end}}
+</ul>
+{{if .showPagination}}{{template "pagination.html" .}}{{end}}
+{{end}}
+{{end}}

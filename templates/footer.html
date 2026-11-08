@@ -1,0 +1,19 @@
+{{/* The keel footer, a dark band: the footer region's blocks side by
+     side in columns, then a line with the footer_bottom region (the
+     copyright block, the theme's - theme.yaml "blocks" - on the left, the
+     region's other blocks on the right); the engine's scripts and the
+     document end (html_scripts, html_end). */}}
+{{define "footer"}}
+<footer class="site-footer k-footer">
+    {{if regionHasBlocks "footer" .}}
+    <div class="k-wrap site-footer-region k-footer-columns">
+        {{template "region_blocks" (dict "Region" (region "footer") "Ctx" .)}}
+    </div>
+    {{end}}
+    <div class="k-wrap k-footer-row">
+        {{template "region_blocks" (dict "Region" (region "footer_bottom") "Ctx" .)}}
+    </div>
+</footer>
+{{template "html_scripts" .}}
+{{template "html_end" .}}
+{{end}}

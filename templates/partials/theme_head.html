@@ -1,0 +1,19 @@
+{{/* The keel theme's hooks (see the engine's partials/theme_head.html):
+     theme_framework - Bootstrap 5.3 and the theme's font (css/fonts.css,
+     the files in static/fonts: Manrope, with Cyrillic), and before the
+     page paints the "accent" setting as data-accent on <html> (keel.css
+     reads it); theme_head - the engine's base.css with the theme's
+     keel.css over it; theme_editor_css - the same for the editors. */}}
+{{define "theme_framework"}}
+    <script>document.documentElement.setAttribute("data-accent",{{themeSetting "accent"}}||"blue");</script>
+    <link rel="stylesheet" href="{{ staticCSS "bootstrap" }}">
+    <link rel="stylesheet" href="{{ themeCSS "fonts" }}">
+{{end}}
+{{define "theme_head"}}
+    <link rel="stylesheet" href="{{ staticCSS "base" }}">
+    <link rel="stylesheet" href="{{ themeCSS "keel" }}">
+{{end}}
+{{/* The editors' text as the page's: Bootstrap, the font, base.css and
+     keel.css, then a subtheme's stylesheets (TinyMCE's content_css is a
+     comma-separated list). */}}
+{{define "theme_editor_css"}}{{ staticCSS "bootstrap" }},{{ themeCSS "fonts" }},{{ staticCSS "base" }},{{ themeCSS "keel" }}{{range themeStylesheets}},{{.}}{{end}}{{end}}

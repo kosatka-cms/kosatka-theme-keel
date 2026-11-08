@@ -1,0 +1,1696 @@
+/* The keel theme: a company's site over the engine's base.css. A white
+   header bar (the logo and the name, the menu, a phone and a button); on
+   the front page full-width bands - a light hero, the content, a dark
+   highlight, bands in white and light grey in turn, a dark call to
+   action - each made of the blocks of its region (layout.html); inner
+   pages with a light band over the title (partials/main_column.html); a
+   dark footer with the footer's blocks in columns. Manrope for
+   everything, one accent colour (the "accent" setting: data-accent on
+   <html>). It styles the engine's own markup and plain HTML in blocks -
+   a list in the highlight is figures, an ordered list in a band is
+   steps, a hero's links are buttons - so no field names of a particular
+   site are assumed. The theme's View templates (views/*.html): cards,
+   people, quotes. */
+
+:root {
+    --k-bg: #ffffff;
+    --k-soft: #f4f7fb;
+    --k-ink: #0f1b2d;
+    --k-text: #2b3a4e;
+    --k-muted: #5b6b80;
+    --k-line: #e3e8ef;
+    --k-field-line: #c9d3e0;
+    /* The accent: blue by default. */
+    --k-accent: #1d4ed8;
+    --k-accent-hover: #1e3a8a;
+    --k-on-accent: #ffffff;
+    /* The dark bands and the footer. */
+    --k-dark: #0f2a4a;
+    --k-dark-text: #c3d0e2;
+    --k-dark-line: #24456b;
+    --k-footer: #0b1f38;
+    --k-footer-text: #9fb0c6;
+    --k-sans: "Manrope", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --k-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --k-radius: .875rem;
+    --k-radius-lg: 1rem;
+    --k-radius-sm: .5rem;
+    --k-page: 75rem;
+    --k-gutter: 1.5rem;
+    --k-band: clamp(3.5rem, 2.5rem + 4vw, 5.5rem);
+}
+
+:root[data-accent="teal"] { --k-accent: #0f766e; --k-accent-hover: #115e59; }
+:root[data-accent="green"] { --k-accent: #15803d; --k-accent-hover: #166534; }
+:root[data-accent="crimson"] { --k-accent: #be123c; --k-accent-hover: #9f1239; }
+
+/* Bootstrap and the engine's components (base.css, profile.css, …) in
+   the theme's colours. */
+:root,
+.mce-content-body {
+    --k-accent-soft: color-mix(in srgb, var(--k-accent) 12%, #ffffff);
+    --bs-body-bg: var(--k-bg);
+    --bs-body-color: var(--k-text);
+    --bs-emphasis-color: var(--k-ink);
+    --bs-heading-color: var(--k-ink);
+    --bs-secondary-color: var(--k-muted);
+    --bs-secondary-bg: var(--k-soft);
+    --bs-tertiary-bg: var(--k-soft);
+    --bs-border-color: var(--k-line);
+    --bs-body-font-family: var(--k-sans);
+    --bs-font-monospace: var(--k-mono);
+    --bs-link-color: var(--k-accent);
+    --bs-link-hover-color: var(--k-accent-hover);
+    --bs-primary: var(--k-accent);
+    --bs-primary-text-emphasis: var(--k-accent);
+    --bs-primary-bg-subtle: var(--k-accent-soft);
+    --bs-primary-border-subtle: color-mix(in srgb, var(--k-accent) 35%, #ffffff);
+    --bs-code-color: var(--k-ink);
+    --bs-border-radius: var(--k-radius-sm);
+    --bs-border-radius-sm: .375rem;
+    --bs-border-radius-lg: var(--k-radius);
+    --kosatka-accent: var(--k-accent);
+    --kosatka-accent-hover: var(--k-accent-hover);
+    --kosatka-radius: var(--k-radius);
+    --kosatka-shadow: none;
+    --kosatka-surface: #ffffff;
+    --kosatka-tint: color-mix(in srgb, var(--k-accent) 9%, transparent);
+    --kosatka-tint-strong: color-mix(in srgb, var(--k-accent) 18%, transparent);
+    --kosatka-line: var(--k-line);
+    --kosatka-link: var(--k-accent);
+    --kosatka-highlight: var(--k-accent);
+    --kosatka-profile-header-bg: linear-gradient(135deg, var(--k-soft), color-mix(in srgb, var(--k-accent) 22%, #ffffff));
+    --kosatka-reading: 100%;
+}
+
+/* An editor's text (TinyMCE: theme_editor_css on a .node-content body)
+   as on the page. */
+.mce-content-body {
+    margin: 1rem;
+    background: #ffffff;
+    color: var(--k-text);
+}
+
+body {
+    background: var(--k-bg);
+    color: var(--k-text);
+    font-family: var(--k-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+}
+
+a {
+    color: var(--k-accent);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--k-accent-hover);
+    text-decoration: underline;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--k-ink);
+    font-family: var(--k-sans);
+    font-weight: 800;
+    letter-spacing: -.01em;
+    line-height: 1.15;
+}
+
+::selection {
+    background: color-mix(in srgb, var(--k-accent) 22%, transparent);
+}
+
+:focus-visible {
+    outline: 2px solid var(--k-accent);
+    outline-offset: 2px;
+}
+
+/* Buttons: the primary in the accent, the others in a line; square-ish
+   corners, bold labels. */
+.btn {
+    --bs-btn-border-radius: var(--k-radius-sm);
+    --bs-btn-font-weight: 700;
+    --bs-btn-padding-x: 1.25rem;
+    --bs-btn-padding-y: .625rem;
+    --bs-btn-focus-box-shadow: 0 0 0 .2rem color-mix(in srgb, var(--k-accent) 30%, transparent);
+}
+
+.btn-primary {
+    --bs-btn-bg: var(--k-accent);
+    --bs-btn-border-color: var(--k-accent);
+    --bs-btn-color: var(--k-on-accent);
+    --bs-btn-hover-bg: var(--k-accent-hover);
+    --bs-btn-hover-border-color: var(--k-accent-hover);
+    --bs-btn-hover-color: var(--k-on-accent);
+    --bs-btn-active-bg: var(--k-accent-hover);
+    --bs-btn-active-border-color: var(--k-accent-hover);
+    --bs-btn-active-color: var(--k-on-accent);
+    --bs-btn-disabled-bg: var(--k-accent);
+    --bs-btn-disabled-border-color: var(--k-accent);
+    --bs-btn-disabled-color: var(--k-on-accent);
+}
+
+.btn-secondary,
+.btn-outline-secondary {
+    --bs-btn-bg: #ffffff;
+    --bs-btn-border-color: var(--k-field-line);
+    --bs-btn-color: var(--k-ink);
+    --bs-btn-hover-bg: #ffffff;
+    --bs-btn-hover-border-color: var(--k-accent);
+    --bs-btn-hover-color: var(--k-accent);
+    --bs-btn-active-bg: #ffffff;
+    --bs-btn-active-border-color: var(--k-accent);
+    --bs-btn-active-color: var(--k-accent);
+    --bs-btn-disabled-bg: #ffffff;
+    --bs-btn-disabled-border-color: var(--k-line);
+    --bs-btn-disabled-color: var(--k-muted);
+}
+
+.btn-outline-primary {
+    --bs-btn-color: var(--k-accent);
+    --bs-btn-border-color: var(--k-accent);
+    --bs-btn-hover-bg: var(--k-accent);
+    --bs-btn-hover-border-color: var(--k-accent);
+    --bs-btn-hover-color: var(--k-on-accent);
+    --bs-btn-active-bg: var(--k-accent);
+    --bs-btn-active-border-color: var(--k-accent);
+    --bs-btn-active-color: var(--k-on-accent);
+}
+
+.text-bg-primary {
+    background-color: var(--k-accent) !important;
+    color: var(--k-on-accent) !important;
+}
+
+/* A text block's links as the theme's buttons (the hero, the header's
+   actions, a card in the sidebar): the first one in the accent, the
+   others in a line. */
+.k-hero .block-content p:has(> a) > a,
+.k-header-actions .block-content a:not([href^="tel:"]):not([href^="mailto:"]),
+.k-side .block-content p:only-child > a:only-child,
+.k-side .block-content p:last-child > a:only-child {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.875rem;
+    padding: .625rem 1.375rem;
+    border: 1px solid var(--k-accent);
+    border-radius: var(--k-radius-sm);
+    background: var(--k-accent);
+    color: var(--k-on-accent);
+    font-weight: 700;
+    line-height: 1.2;
+    text-decoration: none;
+}
+
+.k-hero .block-content p:has(> a) > a:hover,
+.k-header-actions .block-content a:not([href^="tel:"]):not([href^="mailto:"]):hover,
+.k-side .block-content p > a:only-child:hover {
+    border-color: var(--k-accent-hover);
+    background: var(--k-accent-hover);
+    color: var(--k-on-accent);
+    text-decoration: none;
+}
+
+.k-hero .block-content p:has(> a) > a + a {
+    border-color: var(--k-field-line);
+    background: #ffffff;
+    color: var(--k-ink);
+}
+
+.k-hero .block-content p:has(> a) > a + a:hover {
+    border-color: var(--k-accent);
+    background: #ffffff;
+    color: var(--k-accent);
+}
+
+/* Fields. */
+.form-control,
+.form-select {
+    min-height: 2.875rem;
+    border-color: var(--k-field-line);
+    border-radius: var(--k-radius-sm);
+    background-color: #ffffff;
+    color: var(--k-ink);
+}
+
+textarea.form-control {
+    min-height: 7rem;
+}
+
+.form-control::placeholder {
+    color: var(--k-muted);
+}
+
+.form-control:focus,
+.form-select:focus,
+.form-check-input:focus {
+    border-color: var(--k-accent);
+    box-shadow: 0 0 0 .2rem color-mix(in srgb, var(--k-accent) 20%, transparent);
+}
+
+.form-check-input:checked {
+    border-color: var(--k-accent);
+    background-color: var(--k-accent);
+}
+
+.form-label {
+    color: var(--k-ink);
+    font-size: .875rem;
+    font-weight: 700;
+}
+
+/* The page's width: a column centred in the window. */
+.k-wrap {
+    width: 100%;
+    max-width: calc(var(--k-page) + 2 * var(--k-gutter));
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: var(--k-gutter);
+    padding-left: var(--k-gutter);
+}
+
+.k-main {
+    display: block;
+}
+
+/* Header: a white bar across the window - the logo and the name, the
+   menu, the actions (a phone, a button). It scrolls with the page. */
+.k-header {
+    position: static;
+    border: 0;
+    border-bottom: 1px solid var(--k-line);
+    background: #ffffff;
+    backdrop-filter: none;
+    box-shadow: none;
+}
+
+.k-header-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .75rem 2rem;
+    min-height: 4.75rem;
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+}
+
+.k-branding {
+    display: inline-flex;
+    align-items: center;
+    gap: .625rem;
+    min-width: 0;
+    color: var(--k-ink);
+}
+
+.k-branding:hover {
+    color: var(--k-ink);
+    text-decoration: none;
+}
+
+.k-logo {
+    width: auto;
+    height: 2.25rem;
+}
+
+.k-branding .site-name {
+    color: var(--k-ink);
+    font-size: 1.25rem;
+    font-weight: 800;
+    letter-spacing: -.01em;
+    line-height: 1.1;
+    overflow-wrap: anywhere;
+}
+
+.k-header .site-header-region {
+    display: flex;
+    flex: 1 1 auto;
+    align-items: center;
+    min-width: 0;
+}
+
+.k-header .site-header-region .block {
+    margin: 0;
+}
+
+.k-header .site-header-region .block-menu ul.menu {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .125rem 1.5rem;
+    margin: 0;
+    padding: 0;
+}
+
+.k-header .site-header-region .block-menu a {
+    display: inline-block;
+    padding: .375rem 0;
+    color: var(--k-ink);
+    font-size: .9375rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.k-header .site-header-region .block-menu a:hover,
+.k-header .site-header-region .block-menu .active > a,
+.k-header .site-header-region .block-menu .active-trail > a {
+    color: var(--k-accent);
+}
+
+/* The language switcher in the header. */
+.k-header .language-switcher .nav-link {
+    padding: .375rem .5rem;
+    color: var(--k-muted);
+    font-size: .875rem;
+    font-weight: 700;
+}
+
+.k-header .language-switcher .nav-link.active,
+.k-header .language-switcher .nav-link:hover {
+    color: var(--k-ink);
+}
+
+.k-header-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .75rem 1.25rem;
+    margin-left: auto;
+}
+
+.k-header-actions .block {
+    margin: 0;
+}
+
+.k-header-actions .block > h2 {
+    display: none;
+}
+
+.k-header-actions .block-content p {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .5rem 1.25rem;
+    margin: 0;
+}
+
+.k-header-actions .block-content a[href^="tel:"],
+.k-header-actions .block-content a[href^="mailto:"] {
+    color: var(--k-ink);
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.k-header-actions .block-content a:not([href^="tel:"]):not([href^="mailto:"]) {
+    min-height: 2.75rem;
+    padding: .5rem 1.25rem;
+}
+
+.k-header .site-account {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.k-header .site-account > a {
+    color: var(--k-ink);
+    font-size: .9375rem;
+    font-weight: 600;
+}
+
+.k-header .site-account > a:hover {
+    color: var(--k-accent);
+    text-decoration: none;
+}
+
+/* A signed-in user's menu (the engine's user_menu block, rendered for a
+   signed-in user only, so shown at once, not by app.js): the avatar and
+   the name in a pill, its panel under it. */
+.k-header .desktop-user-menu {
+    display: block !important;
+    height: auto;
+    padding-right: 0;
+}
+
+.k-header .user-menu-toggle {
+    gap: .5rem;
+    padding: .1875rem .875rem .1875rem .1875rem;
+    border: 1px solid var(--k-line);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--k-ink);
+    font-size: .875rem;
+    font-weight: 600;
+}
+
+.k-header .user-menu-toggle:hover,
+.k-header .user-menu-toggle.active {
+    border-color: var(--k-accent);
+    background: transparent;
+}
+
+.k-header .user-avatar-small {
+    width: 2rem;
+    height: 2rem;
+    border: 0;
+    border-radius: 50%;
+}
+
+.k-header .user-menu-dropdown .user-name {
+    max-width: 10rem;
+    color: inherit;
+}
+
+.k-header .user-dropdown-menu {
+    top: calc(100% + .5rem);
+    min-width: 260px;
+    padding: .375rem;
+    border: 1px solid var(--k-line);
+    border-radius: var(--k-radius);
+    background: #ffffff;
+    box-shadow: 0 16px 40px rgba(15, 27, 45, .14);
+}
+
+.k-header .user-dropdown-menu .dropdown-item {
+    padding: .5rem .75rem;
+    border-radius: .5rem;
+    color: var(--k-text);
+    font-size: .9375rem;
+}
+
+.k-header .user-dropdown-menu .dropdown-item:hover {
+    background: var(--k-soft);
+    color: var(--k-ink);
+}
+
+/* A narrower screen: the name and the actions in the first row, the
+   menu in a row of its own under them. */
+@media (max-width: 61.98rem) {
+    .k-header-actions {
+        order: 1;
+    }
+
+    .k-header .site-header-region {
+        order: 2;
+        flex-basis: 100%;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .k-header-inner {
+        column-gap: 1rem;
+    }
+
+    .k-header-actions .block-content a[href^="tel:"] {
+        display: none;
+    }
+
+    .k-header-actions .block-content a:not([href^="tel:"]):not([href^="mailto:"]) {
+        min-height: 2.5rem;
+        padding: .375rem .875rem;
+        font-size: .875rem;
+    }
+
+    .k-header .user-menu-dropdown .user-name {
+        display: none;
+    }
+
+    .k-header .user-menu-toggle {
+        padding-right: .1875rem;
+    }
+}
+
+/* The bands: a region across the window, its blocks in the page's
+   column. */
+.k-band {
+    padding-top: var(--k-band);
+    padding-bottom: var(--k-band);
+}
+
+.k-band .block,
+.k-bands > * {
+    margin: 0;
+}
+
+.k-band .block > h2,
+.k-bands .block > h2 {
+    margin: 0 0 1rem;
+    font-size: clamp(1.875rem, 1.4rem + 1.4vw, 2.375rem);
+    letter-spacing: -.015em;
+}
+
+/* The hero: a light band; its first block's title (the front page's
+   message) large, its text, its links as buttons, its picture on the
+   right; the next blocks (clients, say) in a row under it. The site's
+   slogan over it on the front page, as a badge. */
+.k-hero {
+    background: var(--k-soft);
+}
+
+.k-kicker {
+    display: inline-block;
+    margin: 0 0 1.25rem;
+    padding: .375rem .75rem;
+    border-radius: 999px;
+    background: var(--k-accent-soft);
+    color: var(--k-accent-hover);
+    font-size: .8125rem;
+    font-weight: 700;
+}
+
+.k-hero .block:first-of-type {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0 3rem;
+    align-items: center;
+}
+
+.k-hero .block:first-of-type > h2 {
+    margin: 0 0 1.25rem;
+    font-size: clamp(2.375rem, 1.6rem + 3vw, 3.375rem);
+    letter-spacing: -.02em;
+    line-height: 1.08;
+}
+
+.k-hero .block:first-of-type > .block-content {
+    display: contents;
+}
+
+.k-hero .block:first-of-type .block-content > p {
+    max-width: 36rem;
+    margin: 0 0 1.25rem;
+    color: var(--k-text);
+    font-size: 1.1875rem;
+}
+
+.k-hero .block-content p:has(> a) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .75rem;
+    margin-top: .5rem;
+}
+
+.k-hero .block-content p:has(> img) {
+    max-width: none;
+    margin: 0;
+}
+
+.k-hero .block-content img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--k-radius-lg);
+}
+
+@media (min-width: 62rem) {
+    .k-hero .block:first-of-type:has(img) {
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    }
+
+    .k-hero .block:first-of-type:has(img) > * {
+        grid-column: 1;
+    }
+
+    .k-hero .block:first-of-type:has(img) .block-content > p:has(> img) {
+        grid-column: 2;
+        grid-row: 1 / span 9;
+    }
+}
+
+.k-hero .block + .block {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .75rem 1.5rem;
+    margin-top: clamp(2.5rem, 2rem + 2vw, 4rem);
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--k-line);
+}
+
+.k-hero .block + .block > h2 {
+    margin: 0;
+    color: var(--k-text);
+    font-size: .9375rem;
+    font-weight: 700;
+    letter-spacing: 0;
+}
+
+.k-hero .block + .block .block-content > :last-child {
+    margin-bottom: 0;
+}
+
+/* A list there: names in a row, as logos would stand. */
+.k-hero .block + .block ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem 2rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    color: var(--k-muted);
+    font-size: 1.0625rem;
+    font-weight: 800;
+    letter-spacing: -.01em;
+}
+
+/* An inner page's head: a light band with the breadcrumb, the title,
+   a content item's actions and its submitted line. */
+.k-pagehead {
+    padding-top: 2.25rem;
+    padding-bottom: 2.75rem;
+    background: var(--k-soft);
+}
+
+.k-pagehead h1,
+.k-pagehead .node-title {
+    max-width: 56rem;
+    margin: 0;
+    color: var(--k-ink);
+    font-size: clamp(2.125rem, 1.6rem + 2vw, 3rem);
+    font-weight: 800;
+    letter-spacing: -.02em;
+    line-height: 1.1;
+}
+
+.k-pagehead .breadcrumb {
+    margin: 0 0 1.25rem;
+}
+
+.k-pagehead .node-actions,
+.k-pagehead .node-links {
+    margin-top: 1rem;
+}
+
+.k-pagehead .article-meta {
+    margin: 1rem 0 0;
+    padding: 0;
+    border: 0;
+    color: var(--k-muted);
+    font-size: .9375rem;
+}
+
+.breadcrumb {
+    color: var(--k-muted);
+    font-size: .875rem;
+}
+
+.breadcrumb a {
+    color: var(--k-muted);
+}
+
+.breadcrumb a:hover {
+    color: var(--k-accent);
+}
+
+/* The content and the sidebar (partials/main_column.html): side by
+   side on a wide screen, one after the other on a narrower one. */
+.k-page {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3rem;
+    padding-top: clamp(2.5rem, 2rem + 2vw, 4.5rem);
+    padding-bottom: clamp(3rem, 2.5rem + 2vw, 5rem);
+}
+
+.k-content {
+    min-width: 0;
+}
+
+.k-content > :last-child {
+    margin-bottom: 0;
+}
+
+.k-side {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    min-width: 0;
+}
+
+@media (min-width: 62rem) {
+    .k-page-side {
+        grid-template-columns: minmax(0, 1fr) 18.75rem;
+        align-items: start;
+    }
+}
+
+/* The front page's content (its feed: a View with its header text). */
+.view-header-text h2 {
+    margin: 0 0 .75rem;
+    font-size: clamp(1.875rem, 1.4rem + 1.4vw, 2.375rem);
+    letter-spacing: -.015em;
+}
+
+.view-header-text {
+    max-width: 40rem;
+    margin-bottom: 2rem;
+    color: var(--k-text);
+    font-size: 1.0625rem;
+}
+
+.view-header-text > :last-child {
+    margin-bottom: 0;
+}
+
+.view-header-text a {
+    font-weight: 700;
+}
+
+/* The sidebar: its blocks as bordered cards; a text block whose last
+   line is one link is an offer on the dark ground, its link a button. */
+.k-side .block,
+.k-side > .block-menu,
+.k-side .lazy-block {
+    margin: 0;
+    padding: 1.375rem 1.5rem;
+    border: 1px solid var(--k-line);
+    border-radius: var(--k-radius);
+    background: #ffffff;
+}
+
+/* The region's blocks are in the engine's sidebar section (sidebar.html):
+   one after another, apart. */
+.k-side .sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin: 0;
+    padding: 0;
+}
+
+.k-side .block > h2 {
+    margin: 0 0 .75rem;
+    font-size: 1.125rem;
+    letter-spacing: -.01em;
+}
+
+.k-side .block-content > :last-child {
+    margin-bottom: 0;
+}
+
+.k-side .block:has(.block-content > p:last-child > a:only-child) {
+    border-color: var(--k-dark);
+    background: var(--k-dark);
+    color: var(--k-dark-text);
+}
+
+.k-side .block:has(.block-content > p:last-child > a:only-child) > h2 {
+    color: #ffffff;
+}
+
+.k-side .block-content p:last-child > a:only-child {
+    width: 100%;
+    margin-top: .25rem;
+}
+
+/* A list in the sidebar: lines of links. */
+.k-side .item-list:has(> .view-list-item),
+.k-side .block-content ul {
+    display: flex;
+    flex-direction: column;
+    gap: .625rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.k-side .view-list-item,
+.k-side .item-list:has(> .view-list-item .item-field-image) > .view-list-item {
+    display: block;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.k-side .view-list-item:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+.k-side .view-list-item .item-field,
+.k-side .view-list-item .item-field-link {
+    margin: 0;
+    color: var(--k-ink);
+    font-weight: 600;
+}
+
+.k-side .view-list-item .item-field-link:hover {
+    color: var(--k-accent);
+}
+
+/* A content item's page: the fields, the text, the pictures. */
+.k-content article.node {
+    max-width: none;
+    margin: 0;
+}
+
+.k-content .node-content,
+.node-content {
+    color: var(--k-text);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+}
+
+.node-content h2 {
+    margin: 2.5rem 0 1rem;
+    font-size: clamp(1.5rem, 1.25rem + .8vw, 1.875rem);
+}
+
+.node-content h3 {
+    margin: 1.75rem 0 .5rem;
+    font-size: 1.1875rem;
+}
+
+.node-content > :first-child {
+    margin-top: 0;
+}
+
+/* A comfortable line length for the text's paragraphs and headings in a
+   wide column (a page without a sidebar). */
+.node-content > p,
+.node-content > h2,
+.node-content > h3 {
+    max-width: 48rem;
+}
+
+.node-content > p:first-child {
+    color: var(--k-ink);
+    font-size: 1.25rem;
+    line-height: 1.55;
+}
+
+/* A text's list whose items open with a bold phrase: cards in a grid,
+   a tick before each (what a service includes); an ordered one: numbered
+   rows (the stages). */
+.node-content ul:has(> li > strong:first-child) {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    gap: 1rem;
+    margin: 1.25rem 0 2rem;
+    padding: 0;
+    list-style: none;
+}
+
+.node-content ul:has(> li > strong:first-child) > li {
+    position: relative;
+    margin: 0;
+    padding: 1.125rem 1.25rem 1.125rem 3.25rem;
+    border: 1px solid var(--k-line);
+    border-radius: var(--k-radius);
+    font-size: .9375rem;
+    line-height: 1.55;
+}
+
+.node-content ul:has(> li > strong:first-child) > li::before {
+    content: "";
+    position: absolute;
+    top: 1.125rem;
+    left: 1.125rem;
+    width: 1.375rem;
+    height: 1.375rem;
+    border-radius: 50%;
+    background: var(--k-accent-soft);
+}
+
+.node-content ul:has(> li > strong:first-child) > li::after {
+    content: "";
+    position: absolute;
+    top: 1.375rem;
+    left: 1.625rem;
+    width: .375rem;
+    height: .6875rem;
+    border: solid var(--k-accent);
+    border-width: 0 .1875rem .1875rem 0;
+    transform: rotate(45deg);
+}
+
+.node-content ul:has(> li > strong:first-child) > li > strong:first-child {
+    display: block;
+    color: var(--k-ink);
+    font-size: 1rem;
+}
+
+.node-content ol:has(> li > strong:first-child) {
+    margin: 1.25rem 0 2rem;
+    padding: 0;
+    list-style: none;
+    counter-reset: k-stage;
+}
+
+.node-content ol:has(> li > strong:first-child) > li {
+    display: grid;
+    grid-template-columns: 3.5rem minmax(0, 1fr);
+    margin: 0;
+    padding: 1.125rem 0;
+    border-top: 1px solid var(--k-line);
+    counter-increment: k-stage;
+}
+
+.node-content ol:has(> li > strong:first-child) > li::before {
+    content: counter(k-stage, decimal-leading-zero);
+    grid-row: 1 / span 2;
+    color: var(--k-accent);
+    font-size: 1.25rem;
+    font-weight: 800;
+}
+
+.node-content ol:has(> li > strong:first-child) > li > strong:first-child {
+    display: block;
+    color: var(--k-ink);
+    font-size: 1.0625rem;
+}
+
+.node-content table {
+    width: 100%;
+    margin: 1rem 0 2rem;
+    border-collapse: collapse;
+    font-size: .9375rem;
+}
+
+.node-content th,
+.node-content td {
+    padding: .625rem 1rem .625rem 0;
+    border-bottom: 1px solid var(--k-line);
+    text-align: left;
+    vertical-align: top;
+}
+
+.node-content th {
+    width: 35%;
+    color: var(--k-muted);
+    font-weight: 600;
+}
+
+.node-content blockquote {
+    margin: 1.5rem 0;
+    padding: 1.5rem 1.75rem;
+    border: 0;
+    border-radius: var(--k-radius);
+    background: var(--k-soft);
+    color: var(--k-ink);
+    font-size: 1.1875rem;
+    font-weight: 600;
+}
+
+.node-content code {
+    padding: .125rem .375rem;
+    border-radius: .375rem;
+    background: var(--k-soft);
+    font-size: .875em;
+}
+
+.node-content pre {
+    padding: 1rem 1.25rem;
+    border-radius: var(--k-radius-sm);
+    background: var(--k-soft);
+}
+
+.node-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--k-radius-sm);
+}
+
+/* The other fields (the fact box): a row of facts between hairlines -
+   each label small over its value; the terms as badges. */
+.k-content .item-characteristic {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    gap: 1rem 1.5rem;
+    margin: 0 0 2.25rem;
+    padding: 1.25rem 0;
+    border: 0;
+    border-top: 1px solid var(--k-line);
+    border-bottom: 1px solid var(--k-line);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.k-content .item-characteristic > p,
+.k-content .item-characteristic > div {
+    display: flex;
+    flex-direction: column;
+    gap: .125rem;
+    margin: 0;
+    color: var(--k-ink);
+    font-weight: 700;
+}
+
+.k-content .item-characteristic .field-list {
+    color: var(--k-muted);
+    font-size: .8125rem;
+    font-weight: 600;
+}
+
+.k-content .item-characteristic a {
+    font-weight: 700;
+}
+
+/* A taxonomy field without its label: badges, over the other facts. */
+.k-content .item-characteristic > p:has(> a.badge, > .taxonomy-term, > a[href]):not(:has(.field-list)) {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: .5rem;
+}
+
+.k-content .item-characteristic .badge,
+.k-content .item-characteristic > p:not(:has(.field-list)) > a {
+    display: inline-block;
+    padding: .25rem .75rem;
+    border-radius: 999px;
+    background: var(--k-accent-soft);
+    color: var(--k-accent-hover);
+    font-size: .8125rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.k-content .dynamic-field-image {
+    margin: 0 0 2.25rem;
+}
+
+.k-content .dynamic-field-image img,
+.k-content img.dynamic-field-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: var(--k-radius-lg);
+}
+
+.k-content .dynamic-field-richtext {
+    margin-bottom: 2rem;
+}
+
+/* A node's galleries (the galleries module's) and the images of a
+   field with several: rounded corners. */
+.dynamic-field-images-grid img,
+.node-galleries-inner img,
+.galleries-grid img {
+    border-radius: var(--k-radius-sm);
+}
+
+/* The modules' links under a content item (its galleries, say): a row
+   of small pills. */
+.node-module-links {
+    margin: 0 0 1.5rem;
+}
+
+.node-module-links ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.node-module-links ul a,
+.node-module-links-link a {
+    display: inline-block;
+    padding: .375rem .875rem;
+    border: 1px solid var(--k-line);
+    border-radius: 999px;
+    color: var(--k-ink);
+    font-size: .875rem;
+    font-weight: 700;
+}
+
+.node-module-links ul a:hover,
+.node-module-links-link a:hover {
+    border-color: var(--k-accent);
+    color: var(--k-accent);
+    text-decoration: none;
+}
+
+/* The Views attached to a content page: a heading, their lists. */
+.view-attachment,
+.view-attachments {
+    margin-top: 3rem;
+}
+
+.view-attachment > h2,
+.view-attachments h2 {
+    margin: 0 0 1.5rem;
+    font-size: clamp(1.5rem, 1.25rem + .8vw, 1.875rem);
+}
+
+/* The theme's View templates. Cards (views/cards.html): a grid, each a
+   bordered card - a picture on top, or the item's number in a soft
+   square; the terms, the title, the start of the text, a "more" link at
+   the bottom. */
+.k-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 15.5rem), 1fr));
+    gap: 1.25rem;
+}
+
+.k-cards:has(.k-card-image) {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+    gap: 1.5rem;
+}
+
+.k-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--k-line);
+    border-radius: var(--k-radius);
+    background: #ffffff;
+    transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.k-card:hover {
+    border-color: color-mix(in srgb, var(--k-accent) 35%, var(--k-line));
+    box-shadow: 0 12px 30px rgba(15, 27, 45, .08);
+}
+
+.k-card-image img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+}
+
+.k-card-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin: 1.75rem 1.75rem 0;
+    border-radius: .625rem;
+    background: var(--k-accent-soft);
+    color: var(--k-accent);
+    font-weight: 800;
+}
+
+.k-card-body {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    gap: .5rem;
+    padding: 1.25rem 1.75rem 1.625rem;
+}
+
+.k-card-number + .k-card-body {
+    padding-top: 1rem;
+}
+
+.k-card-terms {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .25rem .75rem;
+    margin: 0;
+    color: var(--k-accent);
+    font-size: .8125rem;
+    font-weight: 700;
+}
+
+.k-card-title {
+    margin: 0;
+    font-size: 1.25rem;
+    line-height: 1.25;
+}
+
+.k-card-title a {
+    color: var(--k-ink);
+}
+
+/* The whole card is the title's link. */
+.k-card-title a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+}
+
+.k-card-title a:hover {
+    color: var(--k-accent);
+    text-decoration: none;
+}
+
+.k-card-text {
+    margin: 0;
+    color: var(--k-text);
+    font-size: .9375rem;
+    line-height: 1.55;
+}
+
+.k-card-more {
+    margin-top: auto;
+    padding-top: .5rem;
+    font-weight: 700;
+}
+
+/* People (views/people.html): portraits in a grid, the name and the
+   role under each. */
+.k-people {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 13rem), 1fr));
+    gap: 2rem 1.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.k-person {
+    display: flex;
+    flex-direction: column;
+    gap: .125rem;
+}
+
+.k-person img,
+.k-person-placeholder {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    margin-bottom: .875rem;
+    border-radius: var(--k-radius);
+    background: var(--k-soft);
+    object-fit: cover;
+}
+
+.k-person-name {
+    color: var(--k-ink);
+    font-size: 1.125rem;
+    font-weight: 800;
+}
+
+.k-person-role {
+    color: var(--k-muted);
+}
+
+/* Quotes (views/quotes.html): white cards, the words large, who said
+   them under them. */
+.k-quotes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+    gap: 1.5rem;
+}
+
+.k-quote {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    margin: 0;
+    padding: 2rem;
+    border: 1px solid var(--k-line);
+    border-radius: var(--k-radius);
+    background: #ffffff;
+}
+
+.k-quote blockquote {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.k-quote blockquote p {
+    margin: 0;
+    color: var(--k-ink);
+    font-size: 1.1875rem;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.k-quote blockquote p::before {
+    content: open-quote;
+}
+
+.k-quote blockquote p::after {
+    content: close-quote;
+}
+
+.k-quote figcaption {
+    margin-top: auto;
+    color: var(--k-muted);
+    font-size: .9375rem;
+}
+
+/* The bands (layout.html): a block each, across the window - white and
+   light grey in turn; the block's title large, its content in the
+   page's column. */
+.k-bands > * {
+    padding: var(--k-band) max(var(--k-gutter), calc((100% - var(--k-page)) / 2));
+}
+
+.k-bands > :nth-child(even) {
+    background: var(--k-soft);
+}
+
+.k-bands > :nth-child(even) .k-card,
+.k-bands > :nth-child(even) .k-quote {
+    border-color: transparent;
+}
+
+
+.k-bands .block-content > :last-child {
+    margin-bottom: 0;
+}
+
+.k-bands .block > h2:not(:has(+ .block-content > .view-header-text)) {
+    margin-bottom: 2rem;
+}
+
+/* An ordered list in a band (the stages of work): cards in a row, each
+   numbered, its bold first words the title. */
+.k-bands .block-content > ol {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    gap: 1.25rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: k-step;
+}
+
+.k-bands .block-content > ol > li {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+    padding: 1.625rem;
+    border-top: 4px solid var(--k-accent);
+    border-radius: var(--k-radius);
+    background: #ffffff;
+    color: var(--k-text);
+    font-size: .9375rem;
+    counter-increment: k-step;
+}
+
+.k-bands > :nth-child(odd) .block-content > ol > li {
+    border-right: 1px solid var(--k-line);
+    border-bottom: 1px solid var(--k-line);
+    border-left: 1px solid var(--k-line);
+}
+
+.k-bands .block-content > ol > li::before {
+    content: counter(k-step, decimal-leading-zero);
+    color: var(--k-accent);
+    font-weight: 800;
+}
+
+.k-bands .block-content > ol > li > strong:first-child {
+    display: block;
+    color: var(--k-ink);
+    font-size: 1.1875rem;
+}
+
+/* The dark bands: the highlight and the call to action; the footer. */
+.k-dark {
+    background: var(--k-dark);
+    color: var(--k-dark-text);
+}
+
+.k-dark h2,
+.k-dark h3,
+.k-dark strong {
+    color: #ffffff;
+}
+
+.k-dark a {
+    color: #ffffff;
+}
+
+.k-dark .block > h2 {
+    color: #ffffff;
+}
+
+/* The highlight: a list there is figures - each item's bold start large,
+   the rest under it. A block's title is for the editors (shown only when
+   asked). */
+.k-highlight {
+    padding-top: clamp(2.75rem, 2rem + 2vw, 3.75rem);
+    padding-bottom: clamp(2.75rem, 2rem + 2vw, 3.75rem);
+}
+
+.k-highlight .block-content > ul,
+.k-highlight .block-content > ol {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr));
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.k-highlight .block-content > ul > li,
+.k-highlight .block-content > ol > li {
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+}
+
+.k-highlight .block-content li > strong:first-child {
+    font-size: clamp(2.125rem, 1.6rem + 1.6vw, 2.625rem);
+    font-weight: 800;
+    letter-spacing: -.02em;
+    line-height: 1.1;
+}
+
+.k-highlight .block + .block {
+    margin-top: 2rem;
+}
+
+/* The call to action: its blocks side by side on a wide screen - the
+   text (the title large, the contacts under it) and the form on a white
+   card. */
+.k-cta .k-wrap {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2.5rem 4rem;
+    align-items: start;
+}
+
+@media (min-width: 62rem) {
+    .k-cta .k-wrap:has(> :nth-child(2)) {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+    }
+}
+
+.k-cta .block-content > p {
+    max-width: 30rem;
+    font-size: 1.125rem;
+}
+
+.k-cta .block-content > ul {
+    display: flex;
+    flex-direction: column;
+    gap: .375rem;
+    margin: 1.75rem 0 0;
+    padding: 0;
+    list-style: none;
+    color: #ffffff;
+}
+
+.k-cta .block-content a:hover {
+    color: #ffffff;
+}
+
+/* A form in a dark band (the forms module's block): a white card. */
+.k-dark .block:has(form) {
+    padding: clamp(1.5rem, 1rem + 1.5vw, 2rem);
+    border-radius: var(--k-radius-lg);
+    background: #ffffff;
+    color: var(--k-text);
+}
+
+.k-dark .block:has(form) h2,
+.k-dark .block:has(form) h3,
+.k-dark .block:has(form) strong,
+.k-dark .block:has(form) .form-label {
+    color: var(--k-ink);
+}
+
+.k-dark .block:has(form) a {
+    color: var(--k-accent);
+}
+
+.k-dark .block:has(form) .btn-primary {
+    width: 100%;
+    min-height: 3.125rem;
+}
+
+/* The forms in the content (the forms module's, a profile's…). */
+.webform .form-text,
+.form-text {
+    color: var(--k-muted);
+}
+
+/* Lists in the content (the engine's Views without a theme template, a
+   term's page): base.css's cards, in the theme's corners and lines. */
+.item-list:has(> .view-list-item .item-field-image) > .view-list-item,
+.view-list-item.list-grid-item {
+    border: 1px solid var(--k-line);
+    border-radius: var(--k-radius);
+    box-shadow: none;
+}
+
+.item-list:has(> .view-list-item .item-field-image) > .view-list-item:hover,
+.view-list-item.list-grid-item:hover {
+    border-color: color-mix(in srgb, var(--k-accent) 35%, var(--k-line));
+    box-shadow: 0 12px 30px rgba(15, 27, 45, .08);
+    transform: none;
+}
+
+.view-list-item .item-field-link {
+    color: var(--k-ink);
+    font-weight: 800;
+}
+
+.view-list-item .item-field-link:hover {
+    color: var(--k-accent);
+}
+
+/* A View's exposed filters: a row of fields over the list, apart from
+   it. */
+.view-exposed-filters {
+    margin-bottom: 2.5rem !important;
+    padding-bottom: 1.75rem;
+    border-bottom: 1px solid var(--k-line);
+}
+
+/* Teasers (a term's page, search). */
+.node-teaser {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--k-line);
+}
+
+.node-teaser-title {
+    font-size: 1.375rem;
+}
+
+.node-teaser-title a {
+    color: var(--k-ink);
+}
+
+/* Paging: square-ish buttons, the current page in the accent. */
+.pagination {
+    --bs-pagination-color: var(--k-ink);
+    --bs-pagination-border-color: var(--k-line);
+    --bs-pagination-hover-color: var(--k-accent);
+    --bs-pagination-hover-bg: var(--k-soft);
+    --bs-pagination-hover-border-color: var(--k-line);
+    --bs-pagination-active-bg: var(--k-accent);
+    --bs-pagination-active-border-color: var(--k-accent);
+    --bs-pagination-focus-box-shadow: 0 0 0 .2rem color-mix(in srgb, var(--k-accent) 25%, transparent);
+    gap: .375rem;
+    margin-top: 2.5rem;
+}
+
+.pagination .page-link {
+    min-width: 2.5rem;
+    border-radius: var(--k-radius-sm) !important;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* Comments. */
+.comments {
+    margin-top: 3rem;
+}
+
+/* Footer: a dark band - the footer region's blocks side by side in
+   columns, then a line with the copyright on the left and the region's
+   other blocks on the right. */
+.k-footer {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: var(--k-footer);
+    color: var(--k-footer-text);
+    font-size: .9375rem;
+}
+
+.k-footer a {
+    color: #ffffff;
+}
+
+.k-footer a:hover {
+    color: #ffffff;
+}
+
+.k-footer-columns {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+    gap: 2rem 3rem;
+    padding-top: 3.5rem;
+    padding-bottom: 2.5rem;
+}
+
+.k-footer-columns > * {
+    margin: 0;
+}
+
+.k-footer .block > h2,
+.k-footer .block-menu > h2 {
+    margin: 0 0 .875rem;
+    color: #ffffff;
+    font-size: 1rem;
+    letter-spacing: 0;
+}
+
+.k-footer .block-content > :last-child {
+    margin-bottom: 0;
+}
+
+.k-footer .block-menu ul.menu {
+    display: flex;
+    flex-direction: column;
+    gap: .375rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.k-footer .block-menu a {
+    color: var(--k-footer-text);
+}
+
+.k-footer .block-menu a:hover {
+    color: #ffffff;
+}
+
+.k-footer-row {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: .5rem 2rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    font-size: .875rem;
+}
+
+/* The rule over the line, as wide as the content (not the gutters);
+   none when the footer region is empty. */
+.k-footer-columns + .k-footer-row::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: var(--k-gutter);
+    left: var(--k-gutter);
+    border-top: 1px solid rgba(255, 255, 255, .1);
+}
+
+.k-footer-row .block,
+.k-footer-row p {
+    margin: 0;
+}
+
+.k-footer-row .block > h2 {
+    display: none;
+}
+
+/* The regions' frames of the Blocks page's demo mode (?blocks_demo=1)
+   in a band keep the band's ground. */
+.k-dark .block-region-demo,
+.k-footer .block-region-demo {
+    color: inherit;
+}

@@ -1,0 +1,97 @@
+# The keel theme: a company's site. A white header bar with the logo,
+# the menu, a phone and a button; the front page as full-width bands -
+# a light hero, the content, a dark highlight band, bands in white and
+# light grey in turn, a dark call to action - each made of ordinary
+# blocks; inner pages with a light band over the title; a dark footer
+# with the footer's blocks in columns. Its lists (Views) may use the
+# theme's templates: cards, people, quotes. An accent colour chosen on
+# the Appearance page. It keeps the engine's regions, so blocks placed
+# for another theme stay where they are, and adds the bands.
+name: Keel
+# favicon - the theme's icon (the site's, uploaded on Site information,
+# replaces it).
+favicon: /static/themes/keel/images/keel-icon.svg
+# The theme's description (Appearance page; entity.ThemeInfo).
+description: A company's site - a front page of bands (a hero, a dark highlight, bands in white and grey, a call to action), each a block; services and projects as cards, the team, quotes from clients, a form; an accent colour.
+author: Kosatka
+license: MIT
+# version - this release (the tag vX.Y.Z without its "v"); min_version -
+# the oldest engine release the theme works with.
+version: 0.1.0
+min_version: 0.1.0
+homepage: https://github.com/kosatka-cms/kosatka-theme-keel
+tags: [light, business, company, landing, cards, responsive]
+screenshot: screenshot.jpg
+# default_region - where new blocks go.
+default_region: bands
+regions:
+  # The header bar: the main menu.
+  - id: header
+    label: Header
+  # The header bar's end: a phone, a button (a text block).
+  - id: header_actions
+    label: Header actions
+  # A light band under the header, across the window (the front page's
+  # hero: a text block's title, text, links as buttons, a picture).
+  - id: hero
+    label: Hero
+  # The column beside the content (partials/main_column.html); under it
+  # on a narrow screen.
+  - id: sidebar
+    label: Sidebar
+  # Between the page's title and its content.
+  - id: content_top
+    label: Content top
+  - id: content_bottom
+    label: Content bottom
+  # Inside the node page (dynamic/page.html, forum/topic.html).
+  - id: content_inline
+    label: Inside content (content page)
+  # A dark band after the content (figures: a list, each item's bold
+  # part large).
+  - id: highlight
+    label: Highlight
+  # Bands after it, a block each, white and light grey in turn.
+  - id: bands
+    label: Bands
+  # A dark band at the end of the page (a form, contacts).
+  - id: cta
+    label: Call to action
+  # The dark footer: its blocks side by side in columns.
+  - id: footer
+    label: Footer
+  # The footer's last line (the copyright block on a new site).
+  - id: footer_bottom
+    label: Footer bottom line
+# blocks - the blocks the theme comes with (entity.ThemeBlock): placed
+# when the theme gets its layout for the first time, unless the layout
+# has them.
+blocks:
+  - plugin: copyright
+    region: footer_bottom
+  - title: Powered by Kosatka CMS
+    region: footer_bottom
+    weight: 10
+    body: |
+      <p>Powered by <a href="https://github.com/kosatka-cms/kosatka">Kosatka CMS</a></p>
+# settings - the theme's options on the Appearance page
+# (entity.ThemeSetting). The accent is an attribute of <html>
+# (partials/theme_head.html): keel.css reads it.
+settings:
+  - id: accent
+    label: Accent colour
+    type: select
+    default: blue
+    options:
+      - value: blue
+        label: Blue
+      - value: teal
+        label: Teal
+      - value: green
+        label: Green
+      - value: crimson
+        label: Crimson
+  - id: guest_links
+    label: Logging in and registration in the header
+    type: bool
+    default: false

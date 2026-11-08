@@ -1,0 +1,22 @@
+{
+  "contexts": {},
+  "strings": {
+    "A company's site - a front page of bands (a hero, a dark highlight, bands in white and grey, a call to action), each a block; services and projects as cards, the team, quotes from clients, a form; an accent colour.": "Сайт компании - главная из полос (герой, тёмная полоса, полосы белая и серая через одну, призыв к действию), каждая из блоков; услуги и проекты карточками, команда, отзывы клиентов, форма; акцентный цвет.",
+    "Accent colour": "Акцентный цвет",
+    "Bands": "Полосы",
+    "Blue": "Синий",
+    "Call to action": "Призыв к действию",
+    "Crimson": "Малиновый",
+    "Green": "Зелёный",
+    "Header actions": "Действия в шапке",
+    "Hero": "Первый экран",
+    "Highlight": "Тёмная полоса",
+    "Keel": "Киль",
+    "Logging in and registration in the header": "Вход и регистрация в шапке",
+    "Teal": "Морская волна",
+    "business": "бизнес",
+    "cards": "карточки",
+    "company": "компания",
+    "landing": "лендинг"
+  }
+}

@@ -1,0 +1,535 @@
+# The keel theme's demo site (app install -demo-set keel): a studio
+# making websites and apps - its services, projects, team, clients'
+# quotes, contacts and a request form, the front page made of the
+# theme's bands. Everything here is ordinary content and blocks, edited
+# in the admin.
+site:
+  slogan: A studio building digital products
+  front_page_view: services_home
+  main_menu: main
+  footer_menu: footer
+
+users:
+  - client_maria
+  - client_oliver
+
+image_styles:
+  - {name: keel_card, label: Card, width: 720, height: 450, mode: fill, anchor: focal, hidpi: true}
+  - {name: keel_wide, label: Wide, width: 1200, height: 640, mode: fill, anchor: focal, hidpi: true}
+  - {name: keel_portrait, label: Portrait, width: 480, height: 600, mode: fill, anchor: focal, hidpi: true}
+
+vocabularies:
+  - name: directions
+    label: Directions
+    path: directions
+    terms: [Web service, Mobile app, Customer portal, Design]
+
+field_storages:
+  - {name: field_term, type: text}
+  - {name: field_price, type: text}
+  - {name: field_direction, type: taxonomy, vocabulary: directions}
+  - {name: field_client, type: text}
+  - {name: field_year, type: number, config: {number_kind: integer}}
+  - {name: field_site, type: link}
+  - {name: field_services, type: reference, target: [service], multiple: true}
+
+content_types:
+  - name: service
+    label: Service
+    description: What the company does for its clients.
+    path: services
+    comments: hidden
+    fields:
+      - {storage: field_term, label: Timeline, show_on_detail: true, show_label: true, sort_order: 10, display_order: 0}
+      - {storage: field_price, label: Price, show_on_detail: true, show_label: true, sort_order: 20, display_order: 1}
+      - {storage: field_body, label: Description, widget: textarea, text_formats: [basic_html, plain_text], show_on_detail: true, renders_in_body: true, sort_order: 0, display_order: 10}
+  - name: project
+    label: Project
+    description: A project for a client - the task, the solution, the result.
+    path: projects
+    comments: hidden
+    fields:
+      - {storage: field_image, label: Cover, show_on_detail: true, detail_image_style: keel_wide, list_image_style: keel_card, sort_order: 0, display_order: 20}
+      - {storage: field_direction, label: Direction, show_on_detail: true, sort_order: 10, display_order: 0}
+      - {storage: field_client, label: Client, show_on_detail: true, show_label: true, sort_order: 20, display_order: 1}
+      - {storage: field_term, label: Timeline, show_on_detail: true, show_label: true, sort_order: 30, display_order: 2}
+      - {storage: field_year, label: Year, show_on_detail: true, show_label: true, sort_order: 40, display_order: 3}
+      - {storage: field_site, label: Website, show_on_detail: true, show_label: true, sort_order: 50, display_order: 4}
+      - {storage: field_services, label: Services, widget: autocomplete, show_on_detail: true, show_label: true, sort_order: 60, display_order: 5}
+      - {storage: field_body, label: Description, widget: textarea, text_formats: [basic_html, plain_text], show_on_detail: true, renders_in_body: true, sort_order: 70, display_order: 30}
+  - name: person
+    label: Team member
+    description: Someone on the team - a photo and a role.
+    path: team
+    comments: hidden
+    fields:
+      - {storage: field_image, label: Photo, show_on_detail: true, detail_image_style: keel_portrait, list_image_style: keel_portrait, sort_order: 0, display_order: 0}
+      - {storage: field_body, label: Role, widget: textarea, text_formats: [plain_text, basic_html], show_on_detail: true, renders_in_body: true, sort_order: 10, display_order: 10}
+  - name: review
+    label: Review
+    description: A client's words about the work; the title is who said them.
+    path: reviews
+    comments: hidden
+    fields:
+      - {storage: field_body, label: Review, widget: textarea, text_formats: [plain_text, basic_html], show_on_detail: true, renders_in_body: true, sort_order: 0, display_order: 0}
+
+nodes:
+  - key: svc_web
+    type: service
+    title: Web development
+    ago: 40d
+    fields:
+      field_term: from 8 weeks
+      field_price: from $12,000
+      field_body: |
+        <p>Company websites, customer portals and services with integrations - from a prototype to the launch and beyond.</p>
+        <h2>What's included</h2>
+        <ul>
+        <li><strong>Research and a prototype.</strong> Scenarios, the pages' structure, a clickable prototype.</li>
+        <li><strong>Design.</strong> The interface and a design system in your brand.</li>
+        <li><strong>Development.</strong> The site or the service, its admin, integrations with your systems.</li>
+        <li><strong>Launch.</strong> Data migration, load testing, monitoring.</li>
+        </ul>
+        <h2>How we work</h2>
+        <ol>
+        <li><strong>Briefing.</strong> Goals, audience, constraints - a week.</li>
+        <li><strong>Prototype.</strong> The scenarios tested before the design - two weeks.</li>
+        <li><strong>Design and development.</strong> Two-week sprints, each with a demo.</li>
+        <li><strong>Launch.</strong> Release, monitoring, the first fixes.</li>
+        </ol>
+        <h2>Questions we hear</h2>
+        <h3>Who owns the code?</h3>
+        <p>You do: the code and the design are yours once a stage is paid for.</p>
+        <h3>What happens after the launch?</h3>
+        <p>Support by the hour or a fixed package: fixes, updates, monitoring.</p>
+  - key: svc_mobile
+    type: service
+    title: Mobile apps
+    ago: 39d
+    fields:
+      field_term: from 10 weeks
+      field_price: from $16,000
+      field_body: |
+        <p>Apps for iOS and Android - from a prototype to the app stores and growth after the launch.</p>
+        <h2>What's included</h2>
+        <ul>
+        <li><strong>Prototype.</strong> Scenarios and screens tested with real users.</li>
+        <li><strong>Design.</strong> An interface following each platform's guidelines.</li>
+        <li><strong>Development.</strong> Native or cross-platform - whichever fits the task.</li>
+        <li><strong>Backend.</strong> An API, an admin, push notifications.</li>
+        <li><strong>Publishing.</strong> Getting ready for the App Store and Google Play.</li>
+        </ul>
+        <h2>Questions we hear</h2>
+        <h3>Can we start with one platform?</h3>
+        <p>Yes: it often pays to release on one platform, see the demand, and only then build the other.</p>
+  - key: svc_design
+    type: service
+    title: Interface design
+    ago: 38d
+    fields:
+      field_term: from 4 weeks
+      field_price: from $6,000
+      field_body: |
+        <p>Research, prototypes and design systems for products that have to be easy to use.</p>
+        <h2>What's included</h2>
+        <ul>
+        <li><strong>Research.</strong> Interviews with users, a look at the competitors.</li>
+        <li><strong>Prototype.</strong> The structure and the scenarios, tested with people.</li>
+        <li><strong>Design system.</strong> Components your team uses without us.</li>
+        </ul>
+  - key: svc_support
+    type: service
+    title: Support and growth
+    ago: 37d
+    fields:
+      field_term: from 1 month
+      field_price: from $2,000 a month
+      field_body: |
+        <p>Maintenance, improvements and monitoring after the launch - of our projects and others'.</p>
+        <h2>What's included</h2>
+        <ul>
+        <li><strong>Monitoring.</strong> Uptime and errors watched around the clock.</li>
+        <li><strong>Updates.</strong> Security, dependencies, new platform versions.</li>
+        <li><strong>Improvements.</strong> New features on a quarterly plan.</li>
+        </ul>
+
+  - key: prj_clinic
+    type: project
+    title: Online booking for a chain of clinics
+    ago: 20d
+    fields:
+      field_image: 1
+      field_direction: Web service
+      field_client: Wellpoint Clinics
+      field_term: 5 months
+      field_year: 2026
+      field_site: {url: "https://example.com", title: example.com}
+      field_services: [svc_web, svc_design]
+      field_body: |
+        <p>Patients book a doctor in three steps; the front desk sees every branch's schedule in one window.</p>
+        <h2>The task</h2>
+        <p>Bookings came by phone: at busy hours nobody could get through, and the branches' schedules lived in three different systems.</p>
+        <h2>The solution</h2>
+        <p>Online booking with a choice of doctor and time, an integration with the clinics' medical system, reminders for patients and a desk for the administrators.</p>
+        <h2>The result</h2>
+        <ul>
+        <li><strong>64%</strong> of bookings made online</li>
+        <li><strong>-40%</strong> calls to the front desk</li>
+        <li><strong>12</strong> branches in one window</li>
+        </ul>
+  - key: prj_bakery
+    type: project
+    title: Delivery for a bakery
+    ago: 15d
+    fields:
+      field_image: 2
+      field_direction: Mobile app
+      field_client: Morning Bakery
+      field_term: 4 months
+      field_year: 2026
+      field_services: [svc_mobile, svc_design]
+      field_body: |
+        <p>The menu, the payment and the courier on a map, in one app.</p>
+        <h2>The task</h2>
+        <p>Orders came through messengers, couriers lost addresses, and regulars never heard about what was new.</p>
+        <h2>The solution</h2>
+        <p>An app with the menu and payments, the courier on a live map, a loyalty programme.</p>
+  - key: prj_logistics
+    type: project
+    title: A customer portal for a logistics company
+    ago: 10d
+    fields:
+      field_image: 3
+      field_direction: Customer portal
+      field_client: Transline
+      field_term: 6 months
+      field_year: 2025
+      field_services: [svc_web, svc_support]
+      field_body: |
+        <p>Orders, documents and the state of each shipment, without calling a manager.</p>
+        <h2>The solution</h2>
+        <p>A portal for shipping orders, electronic documents and shipments' status straight from the accounting system.</p>
+  - key: prj_fitness
+    type: project
+    title: A training diary
+    ago: 8d
+    fields:
+      field_image: 4
+      field_direction: Mobile app
+      field_client: Pulse Studio
+      field_term: 3 months
+      field_year: 2025
+      field_services: [svc_mobile]
+      field_body: |
+        <p>Training plans, progress and booking a class, in one app.</p>
+  - key: prj_office
+    type: project
+    title: Passes for an office centre
+    ago: 5d
+    fields:
+      field_image: 5
+      field_direction: Mobile app
+      field_client: North Point Offices
+      field_term: 2 months
+      field_year: 2025
+      field_services: [svc_mobile, svc_support]
+      field_body: |
+        <p>A guest pass in a minute: the tenant issues it, security sees it, the guest walks in with a QR code.</p>
+  - key: prj_brand
+    type: project
+    title: A design system for a bank
+    ago: 3d
+    fields:
+      field_image: 6
+      field_direction: Design
+      field_client: Keystone Bank
+      field_term: 4 months
+      field_year: 2026
+      field_services: [svc_design]
+      field_body: |
+        <p>A hundred and twenty components that five product teams use without the studio's designers.</p>
+
+  - key: person_anna
+    type: person
+    title: Anna Hale
+    ago: 60d
+    fields: {field_image: 7, field_body: Project lead}
+  - key: person_ian
+    type: person
+    title: Ian Brooks
+    ago: 59d
+    fields: {field_image: 8, field_body: Lead designer}
+  - key: person_olivia
+    type: person
+    title: Olivia Shaw
+    ago: 58d
+    fields: {field_image: 9, field_body: CTO}
+  - key: person_daniel
+    type: person
+    title: Daniel Reed
+    ago: 57d
+    fields: {field_image: 10, field_body: Mobile developer}
+
+  - key: review_clinic
+    type: review
+    title: Marina Lowe, head of growth at Wellpoint Clinics
+    ago: 12d
+    fields:
+      field_body: We launched online booking in five months, just as planned. A quarter later half of our patients booked online, and the front desk finally stopped working at its limit.
+  - key: review_bakery
+    type: review
+    title: Sam Porter, founder of Morning Bakery
+    ago: 9d
+    fields:
+      field_body: The team understood our kitchen better than we did. Every two weeks we saw a working app, not a report - and could change our plans as we went.
+
+  - key: contacts
+    type: page
+    title: Contacts
+    path: contacts
+    ago: 60d
+    fields:
+      field_body: |
+        <p>We answer within a working day. If it's easier, call us or write in a messenger.</p>
+        <h2>Get in touch</h2>
+        <ul>
+        <li>Phone: <a href="tel:+15550100000">+1 555 010 0000</a>, Mon-Fri 9:00-18:00</li>
+        <li>E-mail: <a href="mailto:hello@example.com">hello@example.com</a></li>
+        <li>Messenger: <a href="https://example.com">@northcode</a></li>
+        </ul>
+        <h2>Office</h2>
+        <p>1 Example Street, office 10, Springfield. Mon-Fri 9:00-18:00.</p>
+        <h2>Company details</h2>
+        <table>
+        <tbody>
+        <tr><th>Name</th><td>North Code Ltd</td></tr>
+        <tr><th>Company number</th><td>00000000</td></tr>
+        <tr><th>VAT number</th><td>XX 000 0000 00</td></tr>
+        </tbody>
+        </table>
+
+views:
+  - name: services_home
+    label: Services on the front page
+    display_type: block
+    theme_template: cards
+    page_size: 4
+    header: <h2>Services</h2><p>We take a project as a whole or join your team at the stage you need.</p>
+    fields:
+      - {builtin: title, link_to: content}
+    filters:
+      - {builtin: content_type, operator: eq, value: service}
+      - {builtin: status, operator: eq, value: "1"}
+    sorts:
+      - {builtin: created_at, direction: asc}
+  - name: services
+    label: Services
+    display_type: page
+    path: services
+    theme_template: cards
+    page_size: 12
+    header: <p>We take a project as a whole or join your team at the stage you need.</p>
+    fields:
+      - {builtin: title, link_to: content}
+    filters:
+      - {builtin: content_type, operator: eq, value: service}
+      - {builtin: status, operator: eq, value: "1"}
+    sorts:
+      - {builtin: created_at, direction: asc}
+  - name: services_side
+    label: All services
+    display_type: block
+    style: list
+    page_size: 10
+    fields:
+      - {builtin: title, link_to: content}
+    filters:
+      - {builtin: content_type, operator: eq, value: service}
+      - {builtin: status, operator: eq, value: "1"}
+    sorts:
+      - {builtin: created_at, direction: asc}
+  - name: projects_home
+    label: Projects on the front page
+    display_type: block
+    theme_template: cards
+    page_size: 3
+    header: <p>Websites, apps and customer portals for businesses. <a href="/projects">All projects</a></p>
+    fields:
+      - {builtin: title, link_to: content}
+    filters:
+      - {builtin: content_type, operator: eq, value: project}
+      - {builtin: status, operator: eq, value: "1"}
+    sorts:
+      - {builtin: created_at, direction: desc}
+  - name: projects
+    label: Projects
+    display_type: page
+    path: projects
+    theme_template: cards
+    pager: true
+    page_size: 9
+    fields:
+      - {builtin: title, link_to: content}
+    filters:
+      - {builtin: content_type, operator: eq, value: project}
+      - {builtin: status, operator: eq, value: "1"}
+      - {storage: field_direction, operator: in, exposed: direction, exposed_label: Direction}
+    sorts:
+      - {builtin: created_at, direction: desc}
+  - name: projects_by_service
+    label: Projects with this service
+    display_type: attachment
+    attach_types: [service]
+    attach_title: Projects with this service
+    theme_template: cards
+    page_size: 3
+    fields:
+      - {builtin: title, link_to: content}
+    filters:
+      - {builtin: content_type, operator: eq, value: project}
+      - {builtin: status, operator: eq, value: "1"}
+      - {storage: field_services, operator: related_to_current, contextual: true}
+    sorts:
+      - {builtin: created_at, direction: desc}
+  - name: team
+    label: Team
+    display_type: block
+    theme_template: people
+    page_size: 8
+    fields:
+      - {builtin: title}
+    filters:
+      - {builtin: content_type, operator: eq, value: person}
+      - {builtin: status, operator: eq, value: "1"}
+    sorts:
+      - {builtin: created_at, direction: asc}
+  - name: team_page
+    label: Team
+    display_type: page
+    path: team
+    theme_template: people
+    page_size: 40
+    header: <p>We design, draw and write the code ourselves - no subcontractors.</p>
+    fields:
+      - {builtin: title}
+    filters:
+      - {builtin: content_type, operator: eq, value: person}
+      - {builtin: status, operator: eq, value: "1"}
+    sorts:
+      - {builtin: created_at, direction: asc}
+  - name: reviews
+    label: Reviews
+    display_type: block
+    theme_template: quotes
+    page_size: 2
+    fields:
+      - {builtin: title}
+    filters:
+      - {builtin: content_type, operator: eq, value: review}
+      - {builtin: status, operator: eq, value: "1"}
+    sorts:
+      - {builtin: created_at, direction: asc}
+
+# A block's weight orders it in its region (0 - its place in this list,
+# times ten).
+blocks:
+  # The header: a phone and a button.
+  - region: header_actions
+    weight: 1
+    title: Phone and request
+    body: <p><a href="tel:+15550100000">+1 555 010 0000</a> <a href="/contacts">Discuss a project</a></p>
+  # The front page: the hero, the clients, the figures, the bands.
+  - region: hero
+    visibility: homepage
+    weight: 1
+    title: Websites and apps that work for your business
+    show_title: true
+    body: |
+      <p>We design, build and support web services and mobile apps - from the first meeting to the launch and beyond.</p>
+      <p><a href="/contacts">Discuss a project</a> <a href="/projects">See our projects</a></p>
+      <p><img src="/static/themes/keel/images/hero.svg" alt="" width="640" height="480"></p>
+  - region: hero
+    visibility: homepage
+    weight: 10
+    title: Trusted by
+    show_title: true
+    body: <ul><li>Wellpoint Clinics</li><li>Transline</li><li>Morning Bakery</li><li>Keystone Bank</li><li>Pulse Studio</li><li>North Point Offices</li></ul>
+  - region: highlight
+    visibility: homepage
+    weight: 1
+    title: Figures
+    body: <ul><li><strong>120+</strong> projects launched</li><li><strong>11 years</strong> in business</li><li><strong>45</strong> people on the team</li><li><strong>80%</strong> of clients come back</li></ul>
+  - {region: bands, visibility: homepage, weight: 1, view: projects_home, title: Projects, show_title: true}
+  - region: bands
+    visibility: homepage
+    weight: 10
+    title: How we work
+    show_title: true
+    body: <ol><li><strong>Getting to know</strong> We learn the task, the goals and the constraints.</li><li><strong>Estimate and plan</strong> We agree on the scope, the timeline and each stage's price.</li><li><strong>Development</strong> You see the result every two weeks.</li><li><strong>Launch and growth</strong> We release it, watch it work and grow it.</li></ol>
+  - {region: bands, visibility: homepage, weight: 20, view: team, title: Team, show_title: true}
+  - {region: bands, visibility: homepage, weight: 30, view: reviews, title: What our clients say, show_title: true}
+  # Every page ends with the request: a text, then the form (the forms
+  # module's block, modules.forms.block).
+  - region: cta
+    weight: 1
+    title: Tell us about your task
+    show_title: true
+    body: |
+      <p>We answer within a working day: we'll ask our questions and estimate the timeline and the budget.</p>
+      <ul><li><a href="tel:+15550100000">+1 555 010 0000</a></li><li><a href="mailto:hello@example.com">hello@example.com</a></li><li>1 Example Street, Springfield</li></ul>
+  # A service's page: the services and an offer beside the text.
+  - {region: sidebar, types: [service], weight: 1, view: services_side, title: All services, show_title: true}
+  - region: sidebar
+    types: [service]
+    weight: 10
+    title: Get an estimate
+    show_title: true
+    body: <p>Send us a description - we'll reply with a timeline and a budget range.</p><p><a href="/contacts">Send a request</a></p>
+  # The footer: about, the links, the contacts.
+  - region: footer
+    weight: -10
+    title: North Code
+    show_title: true
+    body: <p>A studio building digital products. Websites, apps and customer portals since 2015.</p>
+  - region: footer
+    weight: 20
+    title: Contacts
+    show_title: true
+    body: <p><a href="tel:+15550100000">+1 555 010 0000</a><br><a href="mailto:hello@example.com">hello@example.com</a><br>1 Example Street, Springfield</p>
+
+menus:
+  - name: main
+    links:
+      - {title: Services, view: services}
+      - {title: Projects, view: projects}
+      - {title: Team, view: team_page}
+      - {title: Contacts, node: contacts}
+  - name: footer
+    label: Sections
+    region: footer
+    links:
+      - {title: Services, view: services}
+      - {title: Projects, view: projects}
+      - {title: Team, view: team_page}
+      - {title: Contacts, node: contacts}
+
+modules:
+  forms:
+    title: Request
+    description: Tell us about your task - we answer within a working day.
+    confirmation: Thank you! We've got your request and will answer within a working day.
+    submit: Send the request
+    elements:
+      - {name: name, type: text, label: Name, required: true}
+      - {name: contact, type: text, label: Phone or e-mail, required: true}
+      - {name: topic, type: select, label: Topic, options: [A new project, Web development, Mobile app, Design, Support], prefill: topic}
+      - {name: message, type: textarea, label: About the project}
+      - {name: consent, type: consent, label: I agree to the processing of my personal data}
+    submissions:
+      - {author: client_maria, values: {name: Maria, contact: client_maria@example.com, topic: Mobile app, message: We need a booking app for our salons in three cities., consent: "1"}}
+      - {author: client_oliver, values: {name: Oliver, contact: client_oliver@example.com, topic: Support, message: Looking for a team to support our online store., consent: "1"}}
+    block: {region: cta, weight: 10}
+  galleries:
+    node: prj_clinic
+    title: Screens
+    pictures: [Choosing a doctor, Choosing a time, Confirmation, The front desk]

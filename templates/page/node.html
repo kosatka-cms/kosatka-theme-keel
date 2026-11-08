@@ -1,0 +1,10 @@
+{{/* page_node - every content item's page (the engine's page_default
+     without node_header: the keel's main_column shows the title, the
+     actions and the submitted line in the band over the content). */}}
+{{define "page_node"}}
+{{template "node_moderation_notice" .}}
+<article class="node{{template "node_status_class" .}}">
+    {{renderSuggestion "node_sections" .item.Node.Type .}}
+    {{template "node_footer" .}}
+</article>
+{{end}}

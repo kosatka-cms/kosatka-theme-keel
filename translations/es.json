@@ -1,0 +1,22 @@
+{
+  "contexts": {},
+  "strings": {
+    "A company's site - a front page of bands (a hero, a dark highlight, bands in white and grey, a call to action), each a block; services and projects as cards, the team, quotes from clients, a form; an accent colour.": "Un sitio de empresa - una portada de franjas (un héroe, una franja oscura, franjas blancas y grises alternas, una llamada a la acción), cada una de bloques; servicios y proyectos como tarjetas, el equipo, opiniones de clientes, un formulario; un color de acento.",
+    "Accent colour": "Color de acento",
+    "Bands": "Franjas",
+    "Blue": "Azul",
+    "Call to action": "Llamada a la acción",
+    "Crimson": "Carmesí",
+    "Green": "Verde",
+    "Header actions": "Acciones de la cabecera",
+    "Hero": "Héroe",
+    "Highlight": "Franja oscura",
+    "Keel": "Keel",
+    "Logging in and registration in the header": "Acceso y registro en la cabecera",
+    "Teal": "Verde azulado",
+    "business": "negocios",
+    "cards": "tarjetas",
+    "company": "empresa",
+    "landing": "landing"
+  }
+}

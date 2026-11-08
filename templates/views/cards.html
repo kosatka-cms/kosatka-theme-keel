@@ -1,0 +1,30 @@
+{{/* view_cards - a View's list as cards (the display's Theme template:
+     cards): the item's first image field in its list style on top, its
+     terms as badges, the title, its text's first paragraph and a "more"
+     link.
+     An item without a picture shows its number in the list instead, so a
+     list of services reads as numbered cards. The pager when the View
+     shows it. */}}
+{{define "view_cards"}}
+{{if .items}}
+<div class="k-cards">
+    {{range $i, $it := .items}}
+    {{$href := $it.Node.URL}}
+    <article class="k-card">
+        {{if $it.MainImage.URI}}
+        <a href="{{$href}}" class="k-card-image" tabindex="-1" aria-hidden="true">{{img (styledPicture $it.MainImage $it.ImageStyle) ""}}</a>
+        {{else}}
+        <span class="k-card-number" aria-hidden="true">{{printf "%02d" (add $i 1)}}</span>
+        {{end}}
+        <div class="k-card-body">
+            {{if $it.Terms}}<p class="k-card-terms">{{range $it.Terms}}{{range .}}<span>{{termName .}}</span>{{end}}{{end}}</p>{{end}}
+            <h3 class="k-card-title"><a href="{{$href}}">{{or $it.AltTitle $it.Node.Title}}</a></h3>
+            {{with plainLead $it.Body 160}}<p class="k-card-text">{{.}}</p>{{end}}
+            <a class="k-card-more" href="{{$href}}" aria-hidden="true" tabindex="-1">{{t "More"}} <span aria-hidden="true">&rarr;</span></a>
+        </div>
+    </article>
+    {{end}}
+</div>
+{{if .showPagination}}{{template "pagination.html" .}}{{end}}
+{{end}}
+{{end}}

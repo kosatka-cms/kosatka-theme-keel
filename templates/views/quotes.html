@@ -1,0 +1,16 @@
+{{/* view_quotes - a View's list as quotes (the display's Theme
+     template: quotes): the item's text as the quote, its title (who said
+     it) under it. The pager when the View shows it. */}}
+{{define "view_quotes"}}
+{{if .items}}
+<div class="k-quotes">
+    {{range .items}}
+    <figure class="k-quote">
+        <blockquote><p>{{plainPreview .Body 600}}</p></blockquote>
+        <figcaption>{{or .AltTitle .Node.Title}}</figcaption>
+    </figure>
+    {{end}}
+</div>
+{{if .showPagination}}{{template "pagination.html" .}}{{end}}
+{{end}}
+{{end}}

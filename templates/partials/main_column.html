@@ -1,0 +1,35 @@
+{{/* main_column - the keel's content row. Over it a light band across
+     the window with the breadcrumb and the title - a content item's
+     header (node_header, defined with the content page only: the title,
+     the actions, the submitted line; the theme's page_node leaves it out
+     of the item), else the page's title.
+     Then the content (the content_top region, content, the content_bottom
+     region) and the sidebar beside it on a wide screen, under it on a
+     narrow one, when its region has blocks for this page and it isn't a
+     service page (.servicePage: error pages, editor forms). The front
+     page has no title band (its hero is the theme's), and no row when it
+     has nothing to show there (no feed, no blocks). */}}
+{{define "main_column"}}
+{{$side := and (not .servicePage) (regionHasBlocks "sidebar" .)}}
+{{$empty := and .isHomepage (not .feedHTML) (not $side) (not (regionHasBlocks "content_top" .)) (not (regionHasBlocks "content_bottom" .))}}
+{{if not .isHomepage}}
+<div class="k-pagehead">
+    <div class="k-wrap">
+        {{template "breadcrumb" .}}
+        {{if .item}}{{renderOptional "node" "header" .}}{{else}}{{template "title" .}}{{end}}
+    </div>
+</div>
+{{end}}
+{{if not $empty}}
+<div class="k-wrap k-page{{if $side}} k-page-side{{end}}">
+    <div class="content k-content">
+        {{template "region_blocks" (dict "Region" (region "content_top") "Ctx" .)}}
+
+        {{template "content" .}}
+
+        {{template "region_blocks" (dict "Region" (region "content_bottom") "Ctx" .)}}
+    </div>
+    {{if $side}}<aside class="k-side" aria-label="{{t "Sidebar"}}">{{template "sidebar.html" .}}</aside>{{end}}
+</div>
+{{end}}
+{{end}}
