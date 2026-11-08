@@ -1492,26 +1492,27 @@ textarea.form-control {
     color: #ffffff;
 }
 
-/* A form in a dark band (the forms module's block): a white card. */
-.k-dark .block:has(form) {
+/* A form in a dark band (the forms module's block): a white card - its
+   confirmation too, once sent. */
+.k-dark .webform-block {
     padding: clamp(1.5rem, 1rem + 1.5vw, 2rem);
     border-radius: var(--k-radius-lg);
     background: #ffffff;
     color: var(--k-text);
 }
 
-.k-dark .block:has(form) h2,
-.k-dark .block:has(form) h3,
-.k-dark .block:has(form) strong,
-.k-dark .block:has(form) .form-label {
+.k-dark .webform-block h2,
+.k-dark .webform-block h3,
+.k-dark .webform-block strong,
+.k-dark .webform-block .form-label {
     color: var(--k-ink);
 }
 
-.k-dark .block:has(form) a {
+.k-dark .webform-block a {
     color: var(--k-accent);
 }
 
-.k-dark .block:has(form) .btn-primary {
+.k-dark .webform-block .btn-primary {
     width: 100%;
     min-height: 3.125rem;
 }
