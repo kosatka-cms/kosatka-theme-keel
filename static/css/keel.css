@@ -677,6 +677,22 @@ textarea.form-control {
     margin: 0 0 1.25rem;
 }
 
+/* A page whose title is in its content (an editor's form, the login, an
+   error page): the band is a slim strip of the breadcrumb, the title
+   close under it. */
+.k-pagehead:not(:has(h1, .node-title)) {
+    padding-top: .875rem;
+    padding-bottom: .875rem;
+}
+
+.k-pagehead:not(:has(h1, .node-title)) .breadcrumb {
+    margin: 0;
+}
+
+.k-pagehead:not(:has(h1, .node-title)) + .k-page {
+    padding-top: clamp(1.75rem, 1.25rem + 1.5vw, 2.75rem);
+}
+
 .k-pagehead .node-actions,
 .k-pagehead .node-links {
     margin-top: 1rem;
@@ -1521,6 +1537,21 @@ textarea.form-control {
 .webform .form-text,
 .form-text {
     color: var(--k-muted);
+}
+
+/* The content and profile forms (node-edit-layout): white cards on the
+   soft background; the save card stays right below the admin bar (the
+   header doesn't stick), lifted by a shadow over what scrolls under it. */
+.k-main:has(.node-edit-layout) {
+    background: var(--k-soft);
+}
+
+.k-main .node-edit-layout {
+    --node-edit-sticky-top: 1rem;
+}
+
+.k-main .node-edit-save {
+    box-shadow: 0 8px 28px rgba(15, 27, 45, .14);
 }
 
 /* Lists in the content (the engine's Views without a theme template, a
