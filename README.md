@@ -10,6 +10,25 @@ blocks in columns. An accent colour.
 
 ![Keel](https://raw.githubusercontent.com/kosatka-cms/kosatka-theme-keel/main/static/screenshot.jpg)
 
+## Screenshots
+
+The [demo site](#a-demo-site); a picture opens the whole page.
+
+<table>
+  <tr>
+    <td width="50%"><a href="docs/screenshots/home.jpg"><img src="docs/screenshots/home-preview.jpg" alt="The front page"></a><br>The front page</td>
+    <td width="50%"><a href="docs/screenshots/service.jpg"><img src="docs/screenshots/service-preview.jpg" alt="A service"></a><br>A service</td>
+  </tr>
+  <tr>
+    <td><a href="docs/screenshots/project.jpg"><img src="docs/screenshots/project-preview.jpg" alt="A project"></a><br>A project</td>
+    <td><a href="docs/screenshots/team.jpg"><img src="docs/screenshots/team-preview.jpg" alt="The team"></a><br>The team</td>
+  </tr>
+  <tr>
+    <td><a href="docs/screenshots/contacts.jpg"><img src="docs/screenshots/contacts-preview.jpg" alt="Contacts"></a><br>Contacts</td>
+    <td><a href="docs/screenshots/phone-home.jpg"><img src="docs/screenshots/phone-home-preview.jpg" alt="The front page on a phone" width="48%"></a> <a href="docs/screenshots/phone-project.jpg"><img src="docs/screenshots/phone-project-preview.jpg" alt="A project on a phone" width="48%"></a><br>On a phone: the front page, a project</td>
+  </tr>
+</table>
+
 ## Install
 
 ```bash
@@ -24,7 +43,8 @@ Then commit `themes/` and choose *Keel* on *Appearance*. See
 The theme comes with a demo site in English (`demo/en.yaml`): a studio
 with its services, projects, team, clients' quotes, contacts and a
 request form, the front page built of the theme's bands - as on the
-screenshot. On a new site (Kosatka 0.1.5 or newer):
+screenshot. The projects' and the team's pictures come with the theme
+(`demo/images`). On a new site (Kosatka 0.1.6 or newer):
 
 ```bash
 app install -site-name "North Code" -admin-name admin -admin-email admin@example.com \
@@ -33,6 +53,10 @@ app install -site-name "North Code" -admin-name admin -admin-email admin@example
 
 Everything it creates is ordinary content, Views and blocks, changed or
 deleted in the admin.
+
+The screenshots above are of it: `python3 scripts/screenshots.py
+http://127.0.0.1:8080` (the demo site's address) takes them again into
+`docs/screenshots/` - Python 3 and Google Chrome are all it needs.
 
 ## Settings
 

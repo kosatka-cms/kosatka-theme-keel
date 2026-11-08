@@ -2,7 +2,9 @@
 # making websites and apps - its services, projects, team, clients'
 # quotes, contacts and a request form, the front page made of the
 # theme's bands. Everything here is ordinary content and blocks, edited
-# in the admin.
+# in the admin. The pictures - the projects', the team's, the clinic's
+# screens - are the theme's own (demo/images), copied into the site's
+# files on install.
 site:
   slogan: A studio building digital products
   front_page_view: services_home
@@ -158,7 +160,7 @@ nodes:
     title: Online booking for a chain of clinics
     ago: 20d
     fields:
-      field_image: 1
+      field_image: {file: images/prj-clinic.jpg}
       field_direction: Web service
       field_client: Wellpoint Clinics
       field_term: 5 months
@@ -182,7 +184,7 @@ nodes:
     title: Delivery for a bakery
     ago: 15d
     fields:
-      field_image: 2
+      field_image: {file: images/prj-bakery.jpg}
       field_direction: Mobile app
       field_client: Morning Bakery
       field_term: 4 months
@@ -199,7 +201,7 @@ nodes:
     title: A customer portal for a logistics company
     ago: 10d
     fields:
-      field_image: 3
+      field_image: {file: images/prj-logistics.jpg}
       field_direction: Customer portal
       field_client: Transline
       field_term: 6 months
@@ -214,7 +216,7 @@ nodes:
     title: A training diary
     ago: 8d
     fields:
-      field_image: 4
+      field_image: {file: images/prj-fitness.jpg}
       field_direction: Mobile app
       field_client: Pulse Studio
       field_term: 3 months
@@ -227,7 +229,7 @@ nodes:
     title: Passes for an office centre
     ago: 5d
     fields:
-      field_image: 5
+      field_image: {file: images/prj-office.jpg}
       field_direction: Mobile app
       field_client: North Point Offices
       field_term: 2 months
@@ -240,7 +242,7 @@ nodes:
     title: A design system for a bank
     ago: 3d
     fields:
-      field_image: 6
+      field_image: {file: images/prj-brand.jpg}
       field_direction: Design
       field_client: Keystone Bank
       field_term: 4 months
@@ -253,22 +255,27 @@ nodes:
     type: person
     title: Anna Hale
     ago: 60d
-    fields: {field_image: 7, field_body: Project lead}
+    fields: {field_image: {file: images/person-anna.jpg}, field_body: Project lead}
   - key: person_ian
     type: person
     title: Ian Brooks
     ago: 59d
-    fields: {field_image: 8, field_body: Lead designer}
+    fields: {field_image: {file: images/person-ian.jpg}, field_body: Lead designer}
   - key: person_olivia
     type: person
     title: Olivia Shaw
     ago: 58d
-    fields: {field_image: 9, field_body: CTO}
+    fields: {field_image: {file: images/person-olivia.jpg}, field_body: CTO}
   - key: person_daniel
     type: person
     title: Daniel Reed
     ago: 57d
-    fields: {field_image: 10, field_body: Mobile developer}
+    fields: {field_image: {file: images/person-daniel.jpg}, field_body: Mobile developer}
+  - key: person_lucas
+    type: person
+    title: Lucas Gray
+    ago: 56d
+    fields: {field_image: {file: images/person-lucas.jpg}, field_body: Backend developer}
 
   - key: review_clinic
     type: review
@@ -532,4 +539,8 @@ modules:
   galleries:
     node: prj_clinic
     title: Screens
-    pictures: [Choosing a doctor, Choosing a time, Confirmation, The front desk]
+    pictures:
+      - {title: Choosing a doctor, file: images/clinic-doctor.jpg}
+      - {title: Choosing a time, file: images/clinic-time.jpg}
+      - {title: Confirmation, file: images/clinic-confirm.jpg}
+      - {title: The front desk, file: images/clinic-desk.jpg}
