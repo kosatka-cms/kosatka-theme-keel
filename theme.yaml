@@ -17,7 +17,7 @@ author: Kosatka
 license: MIT
 # version - this release (the tag vX.Y.Z without its "v"); min_version -
 # the oldest engine release the theme works with.
-version: 0.1.3
+version: 0.1.4
 min_version: 0.1.6
 homepage: https://github.com/kosatka-cms/kosatka-theme-keel
 tags: [light, business, company, landing, cards, responsive]
@@ -73,7 +73,7 @@ blocks:
     region: footer_bottom
     weight: 10
     body: |
-      <p>Powered by <a href="https://github.com/kosatka-cms/kosatka">Kosatka CMS</a></p>
+      <p>Powered by <a href="https://github.com/kosatka-cms/kosatka" target="_blank" rel="noopener">Kosatka CMS</a></p>
 # settings - the theme's options on the Appearance page
 # (entity.ThemeSetting). The accent is an attribute of <html>
 # (partials/theme_head.html): keel.css reads it.
