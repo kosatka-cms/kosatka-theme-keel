@@ -18,7 +18,7 @@
         {{end}}
         <div class="k-card-body">
             {{if $it.Terms}}<p class="k-card-terms">{{range $it.Terms}}{{range .}}<span>{{termName .}}</span>{{end}}{{end}}</p>{{end}}
-            <h3 class="k-card-title"><a href="{{$href}}">{{or $it.AltTitle $it.Node.Title}}</a></h3>
+            <h3 class="k-card-title"><a href="{{$href}}">{{$it.Node.Title}}</a></h3>
             {{with plainLead $it.Body 160}}<p class="k-card-text">{{.}}</p>{{end}}
             <a class="k-card-more" href="{{$href}}" aria-hidden="true" tabindex="-1">{{t "More"}} <span aria-hidden="true">&rarr;</span></a>
         </div>

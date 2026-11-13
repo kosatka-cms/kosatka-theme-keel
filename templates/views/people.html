@@ -8,7 +8,7 @@
     {{range .items}}
     <li class="k-person">
         {{if .MainImage.URI}}{{img (styledPicture .MainImage .ImageStyle) ""}}{{else}}<span class="k-person-placeholder" aria-hidden="true"></span>{{end}}
-        <strong class="k-person-name">{{or .AltTitle .Node.Title}}</strong>
+        <strong class="k-person-name">{{.Node.Title}}</strong>
         {{with plainLead .Body 120}}<span class="k-person-role">{{.}}</span>{{end}}
     </li>
     {{end}}

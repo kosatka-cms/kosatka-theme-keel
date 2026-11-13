@@ -7,7 +7,7 @@
     {{range .items}}
     <figure class="k-quote">
         <blockquote><p>{{plainPreview .Body 600}}</p></blockquote>
-        <figcaption>{{or .AltTitle .Node.Title}}</figcaption>
+        <figcaption>{{.Node.Title}}</figcaption>
     </figure>
     {{end}}
 </div>

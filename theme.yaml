@@ -17,7 +17,7 @@ author: Kosatka
 license: MIT
 # version - this release (the tag vX.Y.Z without its "v"); min_version -
 # the oldest engine release the theme works with.
-version: 0.1.4
+version: 0.1.5
 min_version: 0.1.6
 homepage: https://github.com/kosatka-cms/kosatka-theme-keel
 tags: [light, business, company, landing, cards, responsive]
